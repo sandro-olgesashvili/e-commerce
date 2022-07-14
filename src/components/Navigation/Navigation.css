@@ -1,0 +1,28 @@
+.list {
+  display: flex;
+  height: 100%;
+}
+
+.link {
+  margin-right: 32px;
+
+  font-family: "Raleway";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 120%;
+  /* identical to box height, or 19px */
+
+  display: flex;
+  align-items: center;
+  text-align: center;
+  text-transform: uppercase;
+}
+.link:last-of-type {
+  margin:0;
+}
+
+.item {
+  padding-top: 28px;
+  padding-bottom: 32px;
+}
