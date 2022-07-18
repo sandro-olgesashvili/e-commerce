@@ -1,7 +1,7 @@
 import { NavLink } from "react-router-dom";
 import './Navigation.css'
 
-const Navigation = () => {
+const Navigation = ({}) => {
   return (
     <ul className="list">
       <li className="link">

@@ -35,29 +35,69 @@ const GET_DATA = gql`
 `;
 
 function App() {
-  const height = document.body.scrollHeight
+  const height = document.body.scrollHeight;
 
-
-  const [openClose, setOpenClose] = useState(false)
+  const [openClose, setOpenClose] = useState(false);
 
   const { loading, data, error } = useQuery(GET_DATA);
   const [currencyChoosen, setCurrencyChoosen] = useState("$");
   const [addProduct, setAddProduct] = useState([]);
+  const [counterd, setCounterd] = useState(0);
 
-  console.log(addProduct)
+
+  const removeProd = (x) => {
+    setAddProduct(addProduct.filter(item => item.id !== x))
+  }
+  
+  
   if (loading) return <h1>loading...</h1>;
   if (error) return <h1>error</h1>;
-  
+
   return (
     <div className="container">
-        <Navbar currencyChoosen={currencyChoosen} setCurrencyChoosen={setCurrencyChoosen} addProduct={addProduct} openClose={openClose} setOpenClose={setOpenClose} />
-        {openClose && <CartProducts  addProduct={addProduct} height={height}  currencyChoosen={currencyChoosen}/>}
-        <Routes>
-          <Route path="/" element={<ProductList currencyChoosen={currencyChoosen} />} />
-          <Route path="/clothes"  element={<Cloth  currencyChoosen={currencyChoosen}/>}/>
-          <Route path='/tech' element={<Tech currencyChoosen={currencyChoosen} />}/>
-          <Route path="/:id" element={<SingleProduct addProduct={addProduct} setAddProduct={setAddProduct} currencyChoosen={currencyChoosen} />} />
-        </Routes> 
+      <Navbar
+        currencyChoosen={currencyChoosen}
+        setCurrencyChoosen={setCurrencyChoosen}
+        addProduct={addProduct}
+        openClose={openClose}
+        setOpenClose={setOpenClose}
+      />
+      {openClose && (
+        <CartProducts
+        setOpenClose= {setOpenClose}
+          addProduct={addProduct}
+          height={height}
+          currencyChoosen={currencyChoosen}
+          counterd={counterd}
+          setCounterd={setCounterd}
+          removeProd={removeProd}
+        />
+      )}
+      <Routes>
+        <Route
+          path="/"
+          element={<ProductList currencyChoosen={currencyChoosen} />}
+        />
+        <Route
+          path="/clothes"
+          element={<Cloth currencyChoosen={currencyChoosen} />}
+        />
+        <Route
+          path="/tech"
+          element={<Tech currencyChoosen={currencyChoosen} />}
+        />
+        <Route
+          path="/:id"
+          element={
+            <SingleProduct
+              addProduct={addProduct}
+              setAddProduct={setAddProduct}
+              currencyChoosen={currencyChoosen}
+              setCounterd={setCounterd}
+            />
+          }
+        />
+      </Routes>
     </div>
   );
 }

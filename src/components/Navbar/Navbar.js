@@ -4,10 +4,13 @@ import Store from "../../images/store.svg";
 import Navigation from "../Navigation/Navigation";
 import Currency from "../Currency/Currency";
 
+
 const Navbar = ({ setCurrencyChoosen, currencyChoosen, addProduct, openClose, setOpenClose }) => {
+
+
   return (
-    <header className="header">
-      <Navigation />
+    <header className="header" >
+      <Navigation  />
       <div className="img-wrapp">
         <img src={Logo} alt="logo" />
       </div>
@@ -17,7 +20,8 @@ const Navbar = ({ setCurrencyChoosen, currencyChoosen, addProduct, openClose, se
           setCurrencyChoosen={setCurrencyChoosen}
         />
         <div>
-          <div onClick={ () => setOpenClose(!openClose)} className="store-img-wrapper">
+          <div onClick={ (e) => {setOpenClose(!openClose)
+          }} className="store-img-wrapper" id="store-img-wrapper">
             <img className="store-img" src={Store} alt="store" />
             <span className={addProduct.length > 0 ?'store-amount' : ''}>{addProduct.length === 0 ? '' : addProduct.length }</span>
           </div>

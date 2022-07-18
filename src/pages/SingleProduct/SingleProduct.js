@@ -1,5 +1,5 @@
 import { gql, useQuery } from "@apollo/client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import parse from "html-react-parser";
 import "./SingleProduct.css";
@@ -34,10 +34,15 @@ const SINGLE_PROD = gql`
   }
 `;
 
-const SingleProduct = ({ currencyChoosen, addProduct, setAddProduct }) => {
+const SingleProduct = ({ currencyChoosen, addProduct, setAddProduct, setCounterd }) => {
   const { id } = useParams();
 
   console.log(addProduct);
+
+  useEffect(() => {
+    setCounterd(addProduct.length)
+  }, [addProduct])
+
 
   const { data, loading, error } = useQuery(SINGLE_PROD, {
     variables: {
@@ -123,7 +128,8 @@ const SingleProduct = ({ currencyChoosen, addProduct, setAddProduct }) => {
           {data.product.inStock && (
             <button
               className="add-btn"
-              onClick={() => handleAttributes(data.product)}
+              onClick={() => {handleAttributes(data.product)
+              }}
             >
               add to cart
             </button>
