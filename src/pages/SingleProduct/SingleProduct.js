@@ -34,8 +34,9 @@ const SINGLE_PROD = gql`
   }
 `;
 
-const SingleProduct = ({ currencyChoosen, addProduct, setAddProduct, setCounterd }) => {
+const SingleProduct = ({ currencyChoosen, addProduct, setCounterd,addProd, handelSelect,  handelSelectBox}) => {
   const { id } = useParams();
+
 
   console.log(addProduct);
 
@@ -44,17 +45,17 @@ const SingleProduct = ({ currencyChoosen, addProduct, setAddProduct, setCounterd
   }, [addProduct])
 
 
+
+
   const { data, loading, error } = useQuery(SINGLE_PROD, {
     variables: {
       id,
     },
   });
 
+ 
   const [selectedImg, setSelectedImg] = useState(null);
 
-  const handleAttributes = (x) => {
-    setAddProduct((prod) => [...prod, x]);
-  };
 
   const imgPusher = (x) => {
     setSelectedImg(x);
@@ -92,13 +93,14 @@ const SingleProduct = ({ currencyChoosen, addProduct, setAddProduct, setCounterd
           {data?.product.attributes.map((attributes, index) => (
             <div key={index}>
               <span className="item-size">{attributes.name}:</span>
-              <div className="item-values">
+              <ul className="item-values">
                 {attributes.items.map((item, index) => (
-                  <div
+                  <li
                     key={index}
                     className={
                       attributes.name === "Color" ? "box-container" : ""
                     }
+                    onClick={attributes.name === "Color" ? (e) => handelSelectBox(e) : (e) => handelSelect(e)}
                   >
                     <button
                       style={{ backgroundColor: `${item.value}` }}
@@ -109,9 +111,9 @@ const SingleProduct = ({ currencyChoosen, addProduct, setAddProduct, setCounterd
                     >
                       {attributes.name === "Color" ? " " : item.displayValue}
                     </button>
-                  </div>
+                  </li>
                 ))}
-              </div>
+              </ul>
             </div>
           ))}
           <div className="item-price">
@@ -128,7 +130,7 @@ const SingleProduct = ({ currencyChoosen, addProduct, setAddProduct, setCounterd
           {data.product.inStock && (
             <button
               className="add-btn"
-              onClick={() => {handleAttributes(data.product)
+              onClick={() => {addProd(data.product)
               }}
             >
               add to cart

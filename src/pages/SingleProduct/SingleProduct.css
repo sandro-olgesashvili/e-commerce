@@ -121,11 +121,12 @@
   width: 493px;
 }
 .box-container {
-  width: 34px;
-  height: 34px;
+  width: 35px;
+  height: 35px;
   display: flex;
   align-items: center;
   justify-content: center;
+  cursor: pointer;
 }
 
 .box {
@@ -134,6 +135,7 @@
   border: none;
   padding: 2px;
   cursor: pointer;
+  pointer-events: none;
 }
 
 .disabled-btn {
@@ -151,14 +153,13 @@
 }
 
 .active-attr {
-  background-color: rgba(29, 31, 34, 1);
+  background-color: rgba(29, 31, 34, 1) !important;
   color:rgba(255, 255, 255, 1) ;
+}
+.box-container:last-child button {
+  border: 1px solid rgba(29, 31, 34, 1)
 }
 
 .box-active {
-  border: 1px solid rgba(94, 206, 123, 1);
-}
-
-.box-container:last-child button {
-  border: 1px solid rgba(29, 31, 34, 1)
+  border: 1px solid rgba(94, 206, 123, 1) !important;
 }

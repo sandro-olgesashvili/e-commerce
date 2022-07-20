@@ -12,6 +12,39 @@
   flex-direction: column;
   align-items: flex-start;
   justify-content: flex-end;
+  transition: 0.5s;
+  position: relative;
+}
+
+.add-prod-icon {
+  position: absolute;
+  top: 320px;
+  right: 31px;
+  border-radius: 50%;
+  background-color: #5ECE7B;
+  color: #FFFFFF;
+  width: 52px;
+  height: 52px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2;
+  transform: scale(0);
+  transition: all 0.7s;
+  cursor: pointer;
+}
+
+.add-prod-icon img {
+  padding: 14px;
+}
+
+.product-cart:hover {
+  box-shadow: 0px 4px 35px rgba(168, 172, 176, 0.19);
+
+}
+
+.product-cart:hover .add-prod-icon {
+  transform:  scale(1);
 }
 
 .product-cart h2 {

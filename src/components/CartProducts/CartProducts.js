@@ -1,13 +1,12 @@
 import { useEffect, useState } from "react";
 import "./CartProducts.css";
 
+
 const Counter = ({
   removeProd,
   item,
-  setTotal,
   currencyChoosen,
   total,
-  dep,
   setDep,
 }) => {
   const [counter, setCounter] = useState(1);
@@ -64,6 +63,7 @@ const CartProducts = ({
   setCounterd,
   removeProd,
   setOpenClose,
+  handelSelect
 }) => {
   const [total, setTotal] = useState([]);
 
@@ -83,6 +83,7 @@ const CartProducts = ({
   useEffect(() => {
     if (addProduct.length === 0) return setTotal(0);
   }, [dep, removeProd]);
+
 
   return (
     <div
@@ -107,32 +108,33 @@ const CartProducts = ({
               </div>
               {item.prices
                 .filter((price) => price.currency.symbol === currencyChoosen)
-                .map((it, index) => (
+                .map((ite, index) => (
                   <div key={index}>
                     <h4 className="cart-prod-curr">
-                      {it.currency.symbol} <span>{it.amount}</span>
+                      {ite.currency.symbol} <span>{ite.amount}</span>
                     </h4>
                   </div>
                 ))}
-              {item.attributes.map((attribute, index) => (
+              {item.attributes?.map((attribute, index) => (
                 <div key={index}>
                   <h4 className="cart-prod-name">{attribute.name}:</h4>
-                  <div className="cart-prod-s">
+                  <ul className="cart-prod-s">
                     {attribute.items.map((item, index) => (
-                      <div
+                      <li
                         key={index}
                         className={
                           attribute.name === "Color"
                             ? "cart-prod-s-box"
                             : "cart-prod-s-box-btn"
                         }
+                        onClick={(e) => handelSelect(e)}
                       >
-                        <button style={{ background: item.value }}>
+                        <button className="btn-attribute" style={{ background: item.value }}>
                           {attribute.name === "Color" ? "" : item.displayValue}
                         </button>
-                      </div>
+                      </li>
                     ))}
-                  </div>
+                  </ul>
                 </div>
               ))}
             </div>

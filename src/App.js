@@ -9,6 +9,7 @@ import Cloth from "./pages/Cloth";
 import Tech from "./pages/Tech";
 import SingleProduct from "./pages/SingleProduct/SingleProduct";
 import CartProducts from "./components/CartProducts/CartProducts";
+import Cart from './pages/Cart/Cart'
 
 
 const GET_DATA = gql`
@@ -48,6 +49,42 @@ function App() {
   const removeProd = (x) => {
     setAddProduct(addProduct.filter(item => item.id !== x))
   }
+
+
+
+  const addProd = (x) => {
+    addProduct.push(x)
+
+    setAddProduct([...addProduct])
+
+    console.log(x)
+
+    console.log(addProduct)
+  }
+
+
+  const handelSelect = (e) => {
+    const allVal = document.querySelectorAll('.item-value')
+    const small = document.querySelectorAll('.btn-attribute')
+    small.forEach(item => {
+      item.classList.remove('active-attr')
+    })
+    allVal.forEach(item => {
+      item.classList.remove('active-attr')
+    })
+
+    e.target.classList.add('active-attr')
+  }
+
+  const handelSelectBox =(e) => {
+    const all = document.querySelectorAll('.box-container ')
+    all.forEach(item => {
+      item.classList.remove('box-active')
+    })
+
+    e.target.classList.add('box-active')
+  }
+
   
   
   if (loading) return <h1>loading...</h1>;
@@ -71,12 +108,14 @@ function App() {
           counterd={counterd}
           setCounterd={setCounterd}
           removeProd={removeProd}
+          handelSelect={handelSelect}
+          handelSelectBox={handelSelectBox}
         />
       )}
       <Routes>
         <Route
           path="/"
-          element={<ProductList currencyChoosen={currencyChoosen} />}
+          element={<ProductList currencyChoosen={currencyChoosen} addProduct={addProduct} setAddProduct={setAddProduct} addProd={addProd} />}
         />
         <Route
           path="/clothes"
@@ -94,9 +133,13 @@ function App() {
               setAddProduct={setAddProduct}
               currencyChoosen={currencyChoosen}
               setCounterd={setCounterd}
+              addProd={addProd}
+              handelSelect={handelSelect}
+              handelSelectBox={handelSelectBox}
             />
           }
         />
+        <Route path="/cart" element={<Cart />} />
       </Routes>
     </div>
   );
