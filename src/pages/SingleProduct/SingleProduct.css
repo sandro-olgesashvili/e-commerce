@@ -154,7 +154,7 @@
 
 .active-attr {
   background-color: rgba(29, 31, 34, 1) !important;
-  color:rgba(255, 255, 255, 1) ;
+  color:rgba(255, 255, 255, 1) !important ;
 }
 .box-container:last-child button {
   border: 1px solid rgba(29, 31, 34, 1)

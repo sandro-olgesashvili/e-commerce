@@ -77,8 +77,13 @@ function App() {
   }
 
   const handelSelectBox =(e) => {
-    const all = document.querySelectorAll('.box-container ')
-    all.forEach(item => {
+    const all = document?.querySelectorAll('.box-container')
+    const allS = document?.querySelectorAll('.btn-attribute')
+
+    all?.forEach(item => {
+      item.classList.remove('box-active')
+    })
+    allS?.forEach(item => {
       item.classList.remove('box-active')
     })
 
@@ -101,7 +106,7 @@ function App() {
       />
       {openClose && (
         <CartProducts
-        setOpenClose= {setOpenClose}
+          setOpenClose= {setOpenClose}
           addProduct={addProduct}
           height={height}
           currencyChoosen={currencyChoosen}
@@ -139,7 +144,16 @@ function App() {
             />
           }
         />
-        <Route path="/cart" element={<Cart />} />
+        <Route path="/cart" element={<Cart 
+          setOpenClose={setOpenClose}
+          addProduct={addProduct}
+          height={height}
+          currencyChoosen={currencyChoosen}
+          counterd={counterd}
+          setCounterd={setCounterd}
+          removeProd={removeProd}
+          handelSelect={handelSelect}
+          handelSelectBox={handelSelectBox} />} />
       </Routes>
     </div>
   );

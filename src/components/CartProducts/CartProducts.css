@@ -12,7 +12,7 @@
   top: 0px;
   background-color: #fff;
   overflow-x: hidden;
-  overflow-y:  scroll;
+  overflow-y: scroll;
 }
 
 .cart-container {
@@ -41,11 +41,13 @@
   font-weight: 400;
   font-size: 14px;
   line-height: 160%;
+  width: 16px !important;
+  height: 16px !important;
 }
 
 .cart-prod-s-box button {
-  width: 16px;
-  height: 16px;
+  width: 16px !important;
+  height: 16px !important;
   border: none;
   font-size: 14px;
   cursor: pointer;
@@ -170,3 +172,37 @@
   line-height: 18px;
 }
 
+.btn-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.btn-container button {
+  width: 140px;
+  height: 43px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.black-btn {
+  color: #1d1f22;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 120%;
+  border: 1px solid #1d1f22;
+  background: #ffffff;
+}
+
+.green-btn {
+  background: #5ece7b;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 120%;
+  color: #FFFFFF;
+  border: none;
+}

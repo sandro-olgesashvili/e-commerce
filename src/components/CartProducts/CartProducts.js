@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import "./CartProducts.css";
 
 
@@ -63,7 +64,8 @@ const CartProducts = ({
   setCounterd,
   removeProd,
   setOpenClose,
-  handelSelect
+  handelSelect,
+  handelSelectBox
 }) => {
   const [total, setTotal] = useState([]);
 
@@ -127,7 +129,7 @@ const CartProducts = ({
                             ? "cart-prod-s-box"
                             : "cart-prod-s-box-btn"
                         }
-                        onClick={(e) => handelSelect(e)}
+                        onClick={(e) => attribute.name === 'Color'?  handelSelectBox(e) : handelSelect(e)}
                       >
                         <button className="btn-attribute" style={{ background: item.value }}>
                           {attribute.name === "Color" ? "" : item.displayValue}
@@ -163,6 +165,14 @@ const CartProducts = ({
               : 0}
             {currencyChoosen}
           </span>
+        </div>
+        <div className="btn-container">
+          <button className="black-btn">
+            <Link to='/cart'>
+              View Bag
+            </Link>
+            </button>
+          <button className="green-btn">Check out</button>
         </div>
       </div>
     </div>

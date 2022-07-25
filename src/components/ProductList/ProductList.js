@@ -44,6 +44,8 @@ const ProductList = ({
 }) => {
   const { data, loading, error } = useQuery(GET_DATA);
 
+  console.log(data)
+
   return (
     <section>
       <h2 className="title">clothes & tech</h2>
