@@ -71,7 +71,7 @@ const Counter = ({
   }, []);
 
   useEffect(() => {
-    if (counter === 0) {
+    if (counter === 0 || counter < 0) {
       removeProd(item.id);
     }
   }, [counter]);
@@ -107,33 +107,31 @@ const Counter = ({
   );
 };
 
-const List = ({item, attribute}) => {
-  const idSt = attribute.id.replaceAll(/ /g,'')
+const List = ({ attribute }) => {
 
-  const handleSel = (e) => {
-    const small = document.querySelectorAll(`#${idSt}`)
-    small.forEach(item => {
-      item.classList.remove('active-attr')
-    })
-    e.target.classList.add('active-attr')
+  const [bgChange, setBgChange] = useState('');
 
-  }
-
-
-  
   return (
-    <li
-      className={
-        attribute.name === "Color" ? "cart-page-s-box" : "cart-prod-s-box-btn"
-      }
-      onClick={
-        (e) => handleSel(e)
-      }
-    >
-      <button id={idSt} className="btn-attribute" style={{ background: item.value }}>
-        {attribute.name === "Color" ? "" : item.displayValue}
-      </button>
-    </li>
+    <ul className="cart-page-size-list">
+      {attribute.items.map((item, index) => (
+        <li
+          key={index}
+          className={
+            attribute.name === "Color"
+              ? "cart-page-s-box"
+              : "cart-prod-s-box-btn"
+          }
+        >
+          <button
+            onClick={(e) => setBgChange(item.value)}
+            className = {bgChange === item.value ? `btn-attribute ${attribute.name === "Color" ? "box-active" : "active-attr"}` : "btn-attribute "}
+            style={{ background: item.value }}
+          >
+            {attribute.name === "Color" ? "" : item.displayValue}
+          </button>
+        </li>
+      ))}
+    </ul>
   );
 };
 
@@ -145,8 +143,6 @@ const Cart = ({
   counterd,
   setCounterd,
   removeProd,
-  handelSelect,
-  handelSelectBox,
 }) => {
   useEffect(() => {
     setOpenClose(false);
@@ -158,7 +154,7 @@ const Cart = ({
 
   const [quantity, setQuantity] = useState(0);
 
-  console.log(addProduct)
+  console.log(addProduct);
 
   useEffect(() => {
     addProduct.map((product) => {
@@ -197,31 +193,7 @@ const Cart = ({
             {item.attributes?.map((attribute, index) => (
               <div key={index}>
                 <h4 className="cart-page-size-title">{attribute.name}:</h4>
-                <ul className="cart-page-size-list">
-                  {attribute.items.map((item, index) => (
-                    // <li
-                    //   key={index}
-                    //   className={
-                    //     attribute.name === "Color"
-                    //       ? "cart-page-s-box"
-                    //       : "cart-prod-s-box-btn"
-                    //   }
-                    //   onClick={
-                    //     attribute.name === "Color"
-                    //       ? (e) => handelSelectBox(e)
-                    //       : (e) => handelSelect(e)
-                    //   }
-                    // >
-                    //   <button
-                    //     className="btn-attribute"
-                    //     style={{ background: item.value }}
-                    //   >
-                    //     {attribute.name === "Color" ? "" : item.displayValue}
-                    //   </button>
-                    // </li>
-                    <List item={item} attribute={attribute} key={index} />
-                  ))}
-                </ul>
+                <List item={item} attribute={attribute} key={index} />
               </div>
             ))}
           </div>

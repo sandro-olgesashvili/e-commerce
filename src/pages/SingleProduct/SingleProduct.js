@@ -34,18 +34,50 @@ const SINGLE_PROD = gql`
   }
 `;
 
-const SingleProduct = ({ currencyChoosen, addProduct, setCounterd,addProd, handelSelect,  handelSelectBox}) => {
-  const { id } = useParams();
+const PordAttribute = ({ attribute }) => {
+  const [bgChange, setBgChange] = useState("");
 
+  return (
+    <ul className="item-values">
+      {attribute.items.map((item, index) => (
+        <li
+          key={index}
+          className={attribute.name === "Color" ? "box-container" : ""}
+        >
+          <button
+            onClick={(e) => setBgChange(item.value)}
+            className={
+              bgChange === item.value
+                ? `item-value ${
+                    attribute.name === "Color" ? "box" : "active-attr"
+                  }`
+                : "item-value"
+            }
+            style={{ background: item.value }}
+          >
+            {attribute.name === "Color" ? "" : item.displayValue}
+          </button>
+        </li>
+      ))}
+    </ul>
+  );
+};
+
+const SingleProduct = ({
+  currencyChoosen,
+  addProduct,
+  setCounterd,
+  addProd,
+  handelSelect,
+  handelSelectBox,
+}) => {
+  const { id } = useParams();
 
   console.log(addProduct);
 
   useEffect(() => {
-    setCounterd(addProduct.length)
-  }, [addProduct])
-
-
-
+    setCounterd(addProduct.length);
+  }, [addProduct]);
 
   const { data, loading, error } = useQuery(SINGLE_PROD, {
     variables: {
@@ -53,9 +85,7 @@ const SingleProduct = ({ currencyChoosen, addProduct, setCounterd,addProd, hande
     },
   });
 
- 
   const [selectedImg, setSelectedImg] = useState(null);
-
 
   const imgPusher = (x) => {
     setSelectedImg(x);
@@ -68,7 +98,7 @@ const SingleProduct = ({ currencyChoosen, addProduct, setCounterd,addProd, hande
 
   return (
     <section className="single-cotaniner">
-      <div style={{marginRight:'20px'}}>
+      <div style={{ marginRight: "20px" }}>
         {data.product.gallery.map((item, index) => (
           <div
             onClick={() => imgPusher(item)}
@@ -90,30 +120,10 @@ const SingleProduct = ({ currencyChoosen, addProduct, setCounterd,addProd, hande
         <h3 className="item-brand">{data.product.brand}</h3>
         <span className="item-name-prod">{data.product.name}</span>
         <div>
-          {data?.product.attributes.map((attributes, index) => (
+          {data?.product.attributes.map((attribute, index) => (
             <div key={index}>
-              <span className="item-size">{attributes.name}:</span>
-              <ul className="item-values">
-                {attributes.items.map((item, index) => (
-                  <li
-                    key={index}
-                    className={
-                      attributes.name === "Color" ? "box-container" : ""
-                    }
-                    onClick={attributes.name === "Color" ? (e) => handelSelectBox(e) : (e) => handelSelect(e)}
-                  >
-                    <button
-                      style={{ backgroundColor: `${item.value}` }}
-                      type="button"
-                      className={
-                        attributes.name === "Color" ? "box" : `item-value`
-                      }
-                    >
-                      {attributes.name === "Color" ? " " : item.displayValue}
-                    </button>
-                  </li>
-                ))}
-              </ul>
+              <span className="item-size">{attribute.name}:</span>
+              <PordAttribute attribute={attribute} key={index} />
             </div>
           ))}
           <div className="item-price">
@@ -130,7 +140,8 @@ const SingleProduct = ({ currencyChoosen, addProduct, setCounterd,addProd, hande
           {data.product.inStock && (
             <button
               className="add-btn"
-              onClick={() => {addProd(data.product)
+              onClick={() => {
+                addProd(data.product);
               }}
             >
               add to cart

@@ -62,34 +62,6 @@ function App() {
     console.log(addProduct)
   }
 
-
-  const handelSelect = (e) => {
-    const allVal = document.querySelectorAll('.item-value')
-    const small = document.querySelectorAll('.btn-attribute')
-    small.forEach(item => {
-      item.classList.remove('active-attr')
-    })
-    allVal.forEach(item => {
-      item.classList.remove('active-attr')
-    })
-
-    e.target.classList.add('active-attr')
-  }
-
-  const handelSelectBox =(e) => {
-    const all = document?.querySelectorAll('.box-container')
-    const allS = document?.querySelectorAll('.btn-attribute')
-
-    all?.forEach(item => {
-      item.classList.remove('box-active')
-    })
-    allS?.forEach(item => {
-      item.classList.remove('box-active')
-    })
-
-    e.target.classList.add('box-active')
-  }
-
   
   
   if (loading) return <h1>loading...</h1>;
@@ -113,8 +85,6 @@ function App() {
           counterd={counterd}
           setCounterd={setCounterd}
           removeProd={removeProd}
-          handelSelect={handelSelect}
-          handelSelectBox={handelSelectBox}
         />
       )}
       <Routes>
@@ -139,8 +109,6 @@ function App() {
               currencyChoosen={currencyChoosen}
               setCounterd={setCounterd}
               addProd={addProd}
-              handelSelect={handelSelect}
-              handelSelectBox={handelSelectBox}
             />
           }
         />
@@ -151,9 +119,7 @@ function App() {
           currencyChoosen={currencyChoosen}
           counterd={counterd}
           setCounterd={setCounterd}
-          removeProd={removeProd}
-          handelSelect={handelSelect}
-          handelSelectBox={handelSelectBox} />} />
+          removeProd={removeProd}/>} />
       </Routes>
     </div>
   );

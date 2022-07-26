@@ -2,14 +2,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import "./CartProducts.css";
 
-
-const Counter = ({
-  removeProd,
-  item,
-  currencyChoosen,
-  total,
-  setDep,
-}) => {
+const Counter = ({ removeProd, item, currencyChoosen, total, setDep }) => {
   const [counter, setCounter] = useState(1);
 
   const [cartItem, setCartItem] = useState([]);
@@ -56,6 +49,33 @@ const Counter = ({
   );
 };
 
+const SmallList = ({attribute}) => {
+  const [bgChange, setBgChange] = useState('');
+
+  return (
+    <ul className="cart-prod-s">
+      {attribute.items.map((item, index) => (
+        <li
+          key={index}
+          className={
+            attribute.name === "Color"
+              ? "cart-page-s-box"
+              : "cart-prod-s-box-btn"
+          }
+        >
+          <button
+            onClick={(e) => setBgChange(item.value)}
+            className = {bgChange === item.value ? `btn-attribute ${attribute.name === "Color" ? "box-active" : "active-attr"}` : "btn-attribute "}
+            style={{ background: item.value }}
+          >
+            {attribute.name === "Color" ? "" : item.displayValue}
+          </button>
+        </li>
+      ))}
+    </ul>
+  );
+};
+
 const CartProducts = ({
   addProduct,
   height,
@@ -64,8 +84,6 @@ const CartProducts = ({
   setCounterd,
   removeProd,
   setOpenClose,
-  handelSelect,
-  handelSelectBox
 }) => {
   const [total, setTotal] = useState([]);
 
@@ -85,7 +103,6 @@ const CartProducts = ({
   useEffect(() => {
     if (addProduct.length === 0) return setTotal(0);
   }, [dep, removeProd]);
-
 
   return (
     <div
@@ -120,23 +137,7 @@ const CartProducts = ({
               {item.attributes?.map((attribute, index) => (
                 <div key={index}>
                   <h4 className="cart-prod-name">{attribute.name}:</h4>
-                  <ul className="cart-prod-s">
-                    {attribute.items.map((item, index) => (
-                      <li
-                        key={index}
-                        className={
-                          attribute.name === "Color"
-                            ? "cart-prod-s-box"
-                            : "cart-prod-s-box-btn"
-                        }
-                        onClick={(e) => attribute.name === 'Color'?  handelSelectBox(e) : handelSelect(e)}
-                      >
-                        <button className="btn-attribute" style={{ background: item.value }}>
-                          {attribute.name === "Color" ? "" : item.displayValue}
-                        </button>
-                      </li>
-                    ))}
-                  </ul>
+                  <SmallList attribute={attribute}  key={index}/>
                 </div>
               ))}
             </div>
@@ -167,11 +168,9 @@ const CartProducts = ({
           </span>
         </div>
         <div className="btn-container">
-          <button className="black-btn">
-            <Link to='/cart'>
-              View Bag
-            </Link>
-            </button>
+          <Link to="/cart">
+            <button className="black-btn">View Bag</button>
+          </Link>
           <button className="green-btn">Check out</button>
         </div>
       </div>
