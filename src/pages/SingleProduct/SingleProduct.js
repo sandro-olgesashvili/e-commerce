@@ -34,8 +34,9 @@ const SINGLE_PROD = gql`
   }
 `;
 
-const PordAttribute = ({ attribute }) => {
+const PordAttribute = ({ attribute, setBgNote, bgNote}) => {
   const [bgChange, setBgChange] = useState("");
+  
 
   return (
     <ul className="item-values">
@@ -45,11 +46,13 @@ const PordAttribute = ({ attribute }) => {
           className={attribute.name === "Color" ? "box-container" : ""}
         >
           <button
-            onClick={(e) => setBgChange(item.value)}
+            onClick={(e) => {setBgChange(item.displayValue)
+              setBgNote(bg => [...bg, ])
+            }}
             className={
-              bgChange === item.value
+              bgChange === item.displayValue
                 ? `item-value ${
-                    attribute.name === "Color" ? "box" : "active-attr"
+                    attribute.name === "Color" ? "box-active" : "active-attr"
                   }`
                 : "item-value"
             }
@@ -68,12 +71,9 @@ const SingleProduct = ({
   addProduct,
   setCounterd,
   addProd,
-  handelSelect,
-  handelSelectBox,
 }) => {
   const { id } = useParams();
 
-  console.log(addProduct);
 
   useEffect(() => {
     setCounterd(addProduct.length);
@@ -87,11 +87,13 @@ const SingleProduct = ({
 
   const [selectedImg, setSelectedImg] = useState(null);
 
+  const [bgNote, setBgNote] = useState([])
+  
+
   const imgPusher = (x) => {
     setSelectedImg(x);
   };
 
-  console.log(data);
 
   if (loading) return <p>loading...</p>;
   if (error) return <p>error</p>;
@@ -123,7 +125,7 @@ const SingleProduct = ({
           {data?.product.attributes.map((attribute, index) => (
             <div key={index}>
               <span className="item-size">{attribute.name}:</span>
-              <PordAttribute attribute={attribute} key={index} />
+              <PordAttribute attribute={attribute} key={index} addProd={addProd} setBgNote={setBgNote} bgNote={bgNote} />
             </div>
           ))}
           <div className="item-price">
@@ -141,7 +143,7 @@ const SingleProduct = ({
             <button
               className="add-btn"
               onClick={() => {
-                addProd(data.product);
+                addProd(data.product)
               }}
             >
               add to cart

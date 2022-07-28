@@ -83,15 +83,17 @@ const Counter = ({
 
     total.push(cartItem[0]);
 
-    console.log("this is total", total);
-
-    console.log("this is cart", cartItem);
   };
 
   const decrease = () => {
     setCounter((counter) => counter - 1);
 
-    setQuantity((qua) => qua - 1);
+    if(counter == 1) {
+      setQuantity(qua => qua - 0)
+    } else {
+
+      setQuantity((qua) => qua - 1);
+    }
 
     setDep((dep) => dep - 1);
 
@@ -154,14 +156,12 @@ const Cart = ({
 
   const [quantity, setQuantity] = useState(0);
 
-  console.log(addProduct);
 
   useEffect(() => {
     addProduct.map((product) => {
       return product.prices
         .filter((price) => price.currency.symbol === currencyChoosen)
         .map((item) => {
-          console.log("this is total", total);
           return setTotal((total) => [...total, item.amount]);
         });
     });
@@ -169,7 +169,7 @@ const Cart = ({
 
   useEffect(() => {
     if (addProduct.length === 0) return setTotal(0);
-  }, [dep, removeProd]);
+  }, [dep]);
 
   return (
     <section className="cart-page-container">

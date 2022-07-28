@@ -56,10 +56,6 @@ function App() {
     addProduct.push(x)
 
     setAddProduct([...addProduct])
-
-    console.log(x)
-
-    console.log(addProduct)
   }
 
   

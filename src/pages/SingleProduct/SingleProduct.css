@@ -128,14 +128,14 @@
   justify-content: center;
   cursor: pointer;
 }
-
-.box {
+.box-container button {
   width: 32px;
   height: 32px;
   border: none;
   padding: 2px;
   cursor: pointer;
-  pointer-events: none;
+  margin-bottom: 10px;
+
 }
 
 .disabled-btn {

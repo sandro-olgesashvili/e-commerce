@@ -44,8 +44,6 @@ const ProductList = ({
 }) => {
   const { data, loading, error } = useQuery(GET_DATA);
 
-  console.log(data)
-
   return (
     <section>
       <h2 className="title">clothes & tech</h2>
@@ -70,7 +68,6 @@ const ProductList = ({
                     className="add-prod-icon"
                     onClick={() => {
                       addProd(item);
-                      console.log(item);
                     }}
                   >
                     <img src={storeWhite} alt="store-white" />

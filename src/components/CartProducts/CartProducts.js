@@ -27,9 +27,6 @@ const Counter = ({ removeProd, item, currencyChoosen, total, setDep }) => {
 
     total.push(cartItem[0]);
 
-    console.log("this is total", total);
-
-    console.log("this is cart", cartItem);
   };
 
   const decrease = () => {
@@ -59,7 +56,7 @@ const SmallList = ({attribute}) => {
           key={index}
           className={
             attribute.name === "Color"
-              ? "cart-page-s-box"
+              ? "cart-prod-s-box"
               : "cart-prod-s-box-btn"
           }
         >
@@ -94,7 +91,6 @@ const CartProducts = ({
       return product.prices
         .filter((price) => price.currency.symbol === currencyChoosen)
         .map((item) => {
-          console.log("this is total", total);
           return setTotal((total) => [...total, item.amount]);
         });
     });
