@@ -8,7 +8,7 @@
   z-index: 200;
   position: absolute;
   width: 325px;
-  /* left: 1060px; */
+  left: 1060px;
   top: 0px;
   background-color: #fff;
   overflow-x: hidden;
